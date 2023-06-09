@@ -1,0 +1,16 @@
+.train {
+    position: relative;
+	animation: train 15s linear infinite;
+}
+
+@keyframes train {
+	0% {
+		left: 0;
+	}
+	100% {
+		left: 100%;
+	}
+}
+.train img{
+    width: 10%;
+}
