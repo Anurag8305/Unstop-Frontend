@@ -13,7 +13,7 @@ https://unstopseatbooking.vercel.app/
 <p>1. Clone the repo</p>
 
 ```
-git clone https://github.com/Anurag8305/Unstop_BackEnd.git
+git clone https://github.com/Anurag8305/Unstop-Frontend.git
 ```
 
 <p>2. Install NPM packages</p>
@@ -27,6 +27,15 @@ npm install
 ```
 npm start
 ```
+
+<h2>Project Screenshots</h2>
+
+<img src="https://github.com/Anurag8305/Unstop-Frontend/assets/106643486/83180533-af33-47ef-ae88-5bd007320440" alt="project-image" height="400/"></p>
+
+<img src="https://github.com/Anurag8305/Unstop-Frontend/assets/106643486/037d45c3-b744-4d20-b5d2-d352e73e36fd" alt="project-image" height="400/"></p>
+
+<img src="https://github.com/Anurag8305/Unstop-Frontend/assets/106643486/f959777f-9f00-4c91-9fa8-05a91d6c9670" alt="project-image" height="400/"></p>
+
 <h2>Project Insights:</h2>
 <p>1. User can create a new database collection</p>
 <p>2. User can book seats</p> 
