@@ -130,6 +130,7 @@ const NewHomePage = () => {
 			backgroundRepeat={"no-repeat"}
 			backgroundSize={"100%"}
 		>
+        <Heading>Unstop Booking App</Heading>
 			<Box m={"10px"}>
 				<Input
 					placeholder="Enter the Number of Seats to book"
