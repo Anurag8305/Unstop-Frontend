@@ -8,7 +8,6 @@ import {
 	Image,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
-import "./HomePage.css";
 import axios from "axios";
 import Seat from "./Seat";
 
@@ -16,13 +15,12 @@ const NewHomePage = () => {
 	const toast = useToast();
 	const [userseat, setUserseat] = useState(0);
 	const [seat, setSeat] = useState([]);
-	const [count, setCount] = useState(1);
-	console.log(process.env.BASE_URL);
+	let row = 1;
+
 	const getseat = async () => {
 		axios
 			.get(`http://localhost:8080/coach/ticket`)
 			.then((res) => {
-				console.log(res.data);
 				setSeat(res.data);
 			})
 			.catch((err) => {
@@ -30,36 +28,32 @@ const NewHomePage = () => {
 			});
 	};
 	useEffect(() => {
+		getseat();
+	}, []);
+	const handleReset = () => {
 		axios
-			.get(`http://localhost:8080/coach/coach`)
+			.get(`http://localhost:8080/coach/delete`)
 			.then((res) => {
 				toast({
-					title: "New Booking Started.",
-					description: "All Seats are vacant Please start Booking.",
+					title: "All seats reset.",
+					description: "seats Have been reset Please continue booking.",
 					status: "success",
 					position: "top-right",
 					duration: 3000,
 					isClosable: true,
 				});
+				getseat();
 			})
 			.catch((err) => {
-				console.log(err);
+				toast({
+					title: "Something went wrong.",
+					description: "Seats counld not be reset. Work under progress",
+					status: "failurer",
+					position: "top-right",
+					duration: 3000,
+					isClosable: true,
+				});
 			});
-		getseat();
-	}, []);
-	const handlereset = () => {
-		axios.get(`http://localhost:8080/coach/coach`).then((res) => {
-			console.log(res);
-			toast({
-				title: "All seats reset.",
-				description: "seats Have been reset Please continue booking.",
-				status: "success",
-				position: "top-right",
-				duration: 3000,
-				isClosable: true,
-			});
-			getseat();
-		});
 	};
 	const handleBookSeats = () => {
 		if (userseat === 0) {
@@ -95,22 +89,29 @@ const NewHomePage = () => {
 					number_of_seats: userseat,
 				})
 				.then((res) => {
-					console.log(res);
-					toast({
-						title: "Booking Successfull.",
-						description: `${res.data.seat}`,
-						status: "success",
-						position: "top-right",
-						duration: 3000,
-						isClosable: true,
-					});
+					res.data.seat
+						? toast({
+								title: "Booking Successfull.",
+								description: `${res.data.seat}`,
+								status: "success",
+								position: "top-right",
+								duration: 3000,
+								isClosable: true,
+						  })
+						: toast({
+								title: "Booking Unsuccessfull.",
+								description: `${res.data}`,
+								status: "warning",
+								position: "top-right",
+								duration: 3000,
+								isClosable: true,
+						  });
 					getseat();
 				})
 				.catch((err) => {
-					console.log(err);
 					toast({
 						title: "Booking Unsuccessfull.",
-						description: `${err.message}`,
+						description: `${err}`,
 						status: "failure",
 						position: "top-right",
 						duration: 3000,
@@ -120,37 +121,43 @@ const NewHomePage = () => {
 		}
 	};
 	return (
-		<Box m={"10px"}>
-			<Box className="train">
-				<Image src="https://www.animatedimages.org/data/media/75/animated-train-image-0046.gif" />
+		<Box
+			m={"10px"}
+            paddingTop={"10px"}
+			backgroundImage={
+				"https://e0.pxfuel.com/wallpapers/934/924/desktop-wallpaper-airplane-macbook-best-flights-best-airlines-air-tickets-alaska-airlines.jpg"
+			}
+			backgroundRepeat={"no-repeat"}
+			backgroundSize={"100%"}
+		>
+			<Box m={"10px"}>
+				<Input
+					placeholder="Enter the Number of Seats to book"
+					id="numberOfSeats"
+					onChange={(e) => setUserseat(e.target.value)}
+					width={"50%"}
+				/>
 			</Box>
-			<Heading>Unstop Booking App</Heading>
-			<Input
-				placeholder="Enter the Number of Seats to book"
-				id="numberOfSeats"
-				onChange={(e) => setUserseat(e.target.value)}
-			/>
-			<Button onClick={handleBookSeats} colorScheme="blue">
+
+			<Button onClick={handleBookSeats} colorScheme="blue" marginRight={"10px"}>
 				Book Seat
 			</Button>
-			<Button onClick={handlereset} colorScheme="pink">
-				Reset All Seats
+			<Button onClick={handleReset} colorScheme="blue">
+				Reset Seats
 			</Button>
-			<SimpleGrid columns={7} spacing={10} m={"10px"}>
-				{/* {seat.map((el) => (
-                    el.map((subel)=>(
-                        subel.status==="false"?(<Button colorScheme="blue" marginLeft={"5px"}>
-							{count++}
-						</Button>):(<Button colorScheme="red" marginLeft={"5px"} isDisabled >
-							{count++}
-						</Button>)
-                    ))
-					
-				))} */}
-				{seat.map((el) => {
-					return <Seat array={el} />;
-				})}
-			</SimpleGrid>
+			<Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+				<SimpleGrid
+					m={"10px"}
+					columns={{ base: 1, md: 7 }}
+					spacing={{ base: 5, lg: 8 }}
+				>
+					<Heading>START</Heading>
+					{seat.map((el) => (
+						<Seat array={el} row={row++} />
+					))}
+					<Heading>STOP</Heading>
+				</SimpleGrid>
+			</Box>
 		</Box>
 	);
 };

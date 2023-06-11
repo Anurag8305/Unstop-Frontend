@@ -1,23 +1,13 @@
 import React from "react";
-import { Box, Button, ButtonGroup } from "@chakra-ui/react";
-import { SimpleGrid } from "@chakra-ui/react";
-import { calcLength } from "framer-motion";
-import SingleSeat from "./SingleSeat";
+import { Box, Button, Text } from "@chakra-ui/react";
 
-const Seat = ({ array }) => {
-	let count=1
+const Seat = ({ array, row }) => {
+	let count = 1;
 	return (
-		<Box border={"1px solid red"} p={"5px"}>
-			{/* {array.length >0 && array.map((el)=>(
-				el.map((subel)=>(
-					subel.status?(<Button colorScheme="green" marginLeft={"5px"}>
-							{subel.seatNo}
-						</Button>):(<Button colorScheme="red" marginLeft={"5px"} isDisabled >
-							{subel.seatNo}
-						</Button>)
-				))
-			) 
-			)} */}
+		<Box columns={7} spacing={10} p={"5px"} boxShadow={"2xl"}>
+			<Text fontSize={"20px"} color={"white"}>
+				Row {row}
+			</Text>
 			{array.map((el) =>
 				el ? (
 					<Button colorScheme="red" m={"5px"} isDisabled>
