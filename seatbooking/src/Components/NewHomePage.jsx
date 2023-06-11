@@ -19,7 +19,7 @@ const NewHomePage = () => {
 
 	const getseat = async () => {
 		axios
-			.get(`http://localhost:8080/coach/ticket`)
+			.get(`https://dark-pear-bunny-gear.cyclic.app/coach/ticket`)
 			.then((res) => {
 				setSeat(res.data);
 			})
@@ -32,7 +32,7 @@ const NewHomePage = () => {
 	}, []);
 	const handleReset = () => {
 		axios
-			.get(`http://localhost:8080/coach/delete`)
+			.get(`https://dark-pear-bunny-gear.cyclic.app/coach/delete`)
 			.then((res) => {
 				toast({
 					title: "All seats reset.",
@@ -85,7 +85,7 @@ const NewHomePage = () => {
 				isClosable: true,
 			});
 			axios
-				.post(`http://localhost:8080/coach/ticket`, {
+				.post(`https://dark-pear-bunny-gear.cyclic.app/coach/ticket`, {
 					number_of_seats: userseat,
 				})
 				.then((res) => {

@@ -12,16 +12,13 @@ function App() {
 		function handleScroll() {
 			const scrollPosition = 140 + window.innerHeight + window.pageYOffset;
 			const documentHeight = document.body.offsetHeight;
-
 			if (scrollPosition >= documentHeight) {
 				setShouldMount(false);
 			} else {
 				setShouldMount(true);
 			}
 		}
-
 		window.addEventListener("scroll", handleScroll);
-
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 	return (
